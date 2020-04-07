@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, ScrollView, View} from 'react-native';
+import {ActivityIndicator, Platform, ScrollView, View} from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
-import {Gen} from '../utils/Gen';
 import Colors from '../utils/Colors';
 import SearchComponent from '../components/SearchComponent';
 import _ from 'lodash';
-
-const {width, height} = Gen.getDimension();
+import Constants from '../utils/Constants';
 
 class ListScreen extends Component {
   constructor(props) {
@@ -21,9 +19,8 @@ class ListScreen extends Component {
 
   async componentDidMount() {
     const response = await axios.get(
-      'https://api.themoviedb.org/3/movie/upcoming?api_key=b69c9a799da383c62ab9a321a6f7a3d1',
+      `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}`,
     );
-    console.log('DATA : ', response.data);
     this.setState({
       listData: response.data.results,
       isLoaded: true,
@@ -36,16 +33,19 @@ class ListScreen extends Component {
 
   getMovies = async (searchText) => {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/search/?api_key=b69c9a799da383c62ab9a321a6f7a3d1&query=${searchText}`,
+      `${Constants.API_URL}/search/movie?api_key=${Constants.API_KEY}&query=${searchText}`,
     );
-    console.log('SEARCH DATA = ', response);
+    this.setState({
+      listData: response.data.results,
+      isLoaded: true,
+    });
   };
 
   onChangeText = (value) => {
-    console.log('value : ', value);
     this.setState(
       {
         value,
+        isLoaded: true,
       },
       async () => {
         await this.getMoviesDebounced(this.state.value);
@@ -68,11 +68,24 @@ class ListScreen extends Component {
 
     return (
       <View style={{flex: 1, backgroundColor: Colors.White}}>
+        <View style={{
+            backgroundColor:Colors.White,
+            shadowRadius: 10,
+            shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
+            shadowOffset: {
+                width: 0,
+                height: 5,
+            },
+            shadowColor: Colors.Gray,
+            elevation: 10,
+            zIndex: 10000,
+        }}>
         <SearchComponent
           onChangeText={this.onChangeText}
           value={this.state.value}
           placeholder={'Search'}
         />
+        </View>
         <ScrollView>
           <View
             style={{
@@ -81,7 +94,11 @@ class ListScreen extends Component {
               flexWrap: 'wrap',
             }}>
             {this.state.listData.map((listItem) => (
-              <Card data={listItem} onCardPress={this.onCardPress} />
+              <Card
+                data={listItem}
+                onCardPress={this.onCardPress}
+                key={listItem.id}
+              />
             ))}
           </View>
         </ScrollView>

@@ -1,30 +1,31 @@
 import React, {Component} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
 import Colors from '../utils/Colors';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   container: {
     margin: 5,
     paddingVertical: 5,
   },
-  inputStyle:{
+  inputStyle: {
     height: 45,
     backgroundColor: Colors.VeryLightGray,
     borderRadius: 10,
     paddingHorizontal: 10,
     fontSize: 20,
-  }
+  },
 });
 
 class SearchComponent extends Component {
   static propTypes = {
     placeholder: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string,
     onChangeText: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
-    iconName: '',
+    value: '',
   };
 
   render() {
