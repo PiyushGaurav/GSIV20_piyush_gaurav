@@ -1,16 +1,13 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, ImageBackground} from 'react-native';
 import {Gen} from '../utils/Gen';
+import Colors from '../utils/Colors';
 
-const {width, height} = Gen.getDimension();
+const {width} = Gen.getDimension();
 
 class Card extends Component {
-  componentDidMount() {
-    console.log('card data : ', this.props.data);
-  }
-
   render() {
-    const {title, popularity, overview} = this.props.data;
+    const {title, vote_average, overview} = this.props.data;
     return (
       <TouchableOpacity
         onPress={() => {
@@ -18,7 +15,15 @@ class Card extends Component {
         }}
         style={{
           width: width / 2,
-          height: 250,
+          height: 233,
+          shadowRadius: 10,
+          shadowOpacity: Platform.OS === 'ios' ? 0.2 : 0.1,
+          shadowOffset: {
+            width: 0,
+            height: 10,
+          },
+          elevation: 10,
+          zIndex: 10000,
         }}>
         <View
           style={{
@@ -35,25 +40,44 @@ class Card extends Component {
           />
           <View
             style={{
-              flex: 1,
-              backgroundColor: 'gray',
+              height: 63,
+              marginVertical: 3,
+              backgroundColor: Colors.VeryLightGray,
             }}>
             <View
               style={{
                 flex: 1,
                 flexDirection: 'row',
                 justifyContent: 'space-between',
-                padding: 5,
+                paddingHorizontal: 5,
               }}>
-              <Text>{title}</Text>
-              <Text>{popularity}</Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: Colors.Blue,
+                }}>
+                {title}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: Colors.Gray,
+                }}>
+                {vote_average}
+              </Text>
             </View>
             <View
               style={{
                 flex: 2,
-                padding: 5,
+                paddingHorizontal: 5,
               }}>
-              <Text>{overview}</Text>
+              <Text
+                style={{
+                  fontSize: 12,
+                  color: Colors.Gray,
+                }}>
+                {overview}
+              </Text>
             </View>
           </View>
         </View>

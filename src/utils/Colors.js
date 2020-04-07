@@ -1,5 +1,5 @@
 export default {
-  green: '#34A853',
+  Green: '#34A853',
   Amber: '#FBBC04',
   Red: '#CF3721',
   Blue: '#4285F4',
@@ -7,5 +7,7 @@ export default {
   Orchid: '#AC69B0',
   Gray: '#4A4A4A',
   LightGray: '#9B9B9B',
+  VeryLightGray: '#DFDFDF',
   Disabled: '#DFDFDF',
+  White: '#FFFFFF',
 };
