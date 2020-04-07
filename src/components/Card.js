@@ -9,7 +9,7 @@ const {width} = Gen.getDimension();
 const styles = StyleSheet.create({
   container: {
     width: width / 2,
-    height: 233,
+    height: 250,
     shadowRadius: 10,
     shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
     shadowOffset: {
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     margin: 7,
     borderRadius: 10,
     overflow: 'hidden',
+    backgroundColor: Colors.White,
   },
   imageContainer: {
     flex: 3,
@@ -32,8 +33,9 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     height: 63,
-    marginVertical: 3,
+    paddingVertical: 3,
     backgroundColor: Colors.VeryLightGray,
+    justifyContent: 'space-around',
   },
   firstInnerContent: {
     flex: 1,
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
   secondInnerContent: {
     flex: 2,
     paddingHorizontal: 5,
+    paddingTop: 10,
   },
   titleStyle: {
     flex: 8,

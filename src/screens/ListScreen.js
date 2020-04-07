@@ -1,11 +1,44 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, Platform, ScrollView, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 import axios from 'axios';
 import Card from '../components/Card';
 import Colors from '../utils/Colors';
 import SearchComponent from '../components/SearchComponent';
 import _ from 'lodash';
 import Constants from '../utils/Constants';
+
+const styles = StyleSheet.create({
+  activityContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  container: {flex: 1, backgroundColor: Colors.White},
+  searchContainer: {
+    backgroundColor: Colors.White,
+    shadowRadius: 5,
+    shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowColor: Colors.Gray,
+    elevation: 10,
+    zIndex: 10000,
+  },
+  listContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 5,
+  },
+});
 
 class ListScreen extends Component {
   constructor(props) {
@@ -14,7 +47,7 @@ class ListScreen extends Component {
       listData: [],
       isLoaded: false,
     };
-    this.getMoviesDebounced = _.debounce(this.getMovies, 1000);
+    this.getMoviesDebounced = _.debounce(this.getMovies, 500);
   }
 
   async componentDidMount() {
@@ -55,12 +88,7 @@ class ListScreen extends Component {
   render() {
     if (!this.state.isLoaded) {
       return (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
+        <View style={styles.activityContainer}>
           <ActivityIndicator size="large" color={Colors.Orange} />
         </View>
       );
@@ -68,31 +96,18 @@ class ListScreen extends Component {
 
     return (
       <View style={{flex: 1, backgroundColor: Colors.White}}>
-        <View style={{
-            backgroundColor:Colors.White,
-            shadowRadius: 10,
-            shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
-            shadowOffset: {
-                width: 0,
-                height: 5,
-            },
-            shadowColor: Colors.Gray,
-            elevation: 10,
-            zIndex: 10000,
-        }}>
-        <SearchComponent
-          onChangeText={this.onChangeText}
-          value={this.state.value}
-          placeholder={'Search'}
-        />
+        <View style={styles.searchContainer}>
+          <SearchComponent
+            onChangeText={this.onChangeText}
+            value={this.state.value}
+            placeholder={'Search'}
+          />
         </View>
-        <ScrollView>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
+        <ScrollView
+          style={{
+            backgroundColor: Colors.White,
+          }}>
+          <View style={styles.listContainer}>
             {this.state.listData.map((listItem) => (
               <Card
                 data={listItem}
