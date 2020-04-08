@@ -68,6 +68,7 @@ class DetailsScreen extends Component {
       `${Constants.API_URL}/movie/${id}?api_key=${Constants.API_KEY}`,
     );
     const details = response.data;
+    console.log('details : ' ,details);
     const date = new Date(details.release_date);
     const year = date.getFullYear();
     const hours = Math.floor(details.runtime / 60);

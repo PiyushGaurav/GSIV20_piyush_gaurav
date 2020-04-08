@@ -8,9 +8,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.VeryLightGray,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // margin: 10,
   },
 
   SectionStyle: {
@@ -18,7 +15,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: Colors.White,
-    // borderWidth: 0.5,
     borderColor: '#000',
     height: 45,
     borderRadius: 5,
