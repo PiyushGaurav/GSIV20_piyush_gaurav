@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, Platform, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Platform,
+  StyleSheet,
+  Image,
+} from 'react-native';
 import {Gen} from '../utils/Gen';
 import Colors from '../utils/Colors';
 import PropTypes from 'prop-types';
+import Constants from '../utils/Constants';
 
 const {width} = Gen.getDimension();
 
@@ -29,7 +37,6 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     flex: 3,
-    backgroundColor: 'red',
   },
   detailsContainer: {
     height: 63,
@@ -71,7 +78,7 @@ class Card extends Component {
     onCardPress: PropTypes.func.isRequired,
   };
   render() {
-    const {title, vote_average, overview} = this.props.data;
+    const {title, vote_average, overview, poster_path} = this.props.data;
     return (
       <TouchableOpacity
         onPress={() => {
@@ -79,7 +86,16 @@ class Card extends Component {
         }}
         style={styles.container}>
         <View style={styles.innerContainer}>
-          <View style={styles.imageContainer} />
+          <View style={styles.imageContainer}>
+            <Image
+              style={{
+                width: '100%',
+                height: '100%',
+                resizeMode: 'cover',
+              }}
+              source={{uri: `${Constants.POSTER_DIR}${poster_path}`}}
+            />
+          </View>
           <View style={styles.detailsContainer}>
             <View style={styles.firstInnerContent}>
               <Text style={styles.titleStyle} numberOfLines={1}>

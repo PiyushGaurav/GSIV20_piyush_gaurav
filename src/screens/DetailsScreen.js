@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from 'react-native';
 import axios from 'axios';
 import Colors from '../utils/Colors';
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 400,
     margin: 10,
-    backgroundColor: Colors.Gray,
+    // backgroundColor: Colors.Gray,
   },
   detailsContainer: {
     flex: 1,
@@ -64,11 +65,15 @@ class DetailsScreen extends Component {
   async componentDidMount() {
     const {navigation} = this.props;
     const id = navigation.getParam('id', null);
+    const imageResponse = await axios.get(
+      `${Constants.API_URL}/movie/${id}/images?api_key=${Constants.API_KEY}`,
+    );
+    console.log('imageResponse  :', imageResponse.data);
     const response = await axios.get(
       `${Constants.API_URL}/movie/${id}?api_key=${Constants.API_KEY}`,
     );
     const details = response.data;
-    console.log('details : ' ,details);
+    console.log('details : ', details);
     const date = new Date(details.release_date);
     const year = date.getFullYear();
     const hours = Math.floor(details.runtime / 60);
@@ -89,14 +94,28 @@ class DetailsScreen extends Component {
         </View>
       );
     }
-    const {original_title, vote_average, overview} = this.state.movieDetails;
+    const {
+      original_title,
+      vote_average,
+      overview,
+      poster_path,
+    } = this.state.movieDetails;
 
     const {year, movieLength} = this.state;
 
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View style={styles.imageContainer} />
+          <View style={styles.imageContainer}>
+            <Image
+              style={{
+                width: '100%',
+                height: '100%',
+                resizeMode: 'cover',
+              }}
+              source={{uri: `${Constants.POSTER_DIR}${poster_path}`}}
+            />
+          </View>
           <View style={styles.detailsContainer}>
             <View style={styles.sectionContainer}>
               <Text style={styles.titleStyle}>{original_title}</Text>

@@ -58,6 +58,7 @@ class ListScreen extends Component {
     const response = await axios.get(
       `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}`,
     );
+    console.log('LIST DATA : ',response.data.results);
     this.setState({
       listData: response.data.results,
       isLoaded: true,
