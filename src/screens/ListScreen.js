@@ -106,6 +106,7 @@ class ListScreen extends Component {
         <ScrollView
           style={{
             backgroundColor: Colors.White,
+            paddingTop: 45,
           }}>
           <View style={styles.listContainer}>
             {this.state.listData.map((listItem) => (
