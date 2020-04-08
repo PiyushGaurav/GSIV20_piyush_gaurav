@@ -57,6 +57,14 @@ class SearchComponent extends Component {
             value={this.props.value}
             onChangeText={this.props.onChangeText}
           />
+          <Icon
+            name={'cancel'}
+            size={30}
+            color={Colors.LightGray}
+            onPress={() => {
+              this.props.onChangeText('');
+            }}
+          />
         </View>
       </View>
     );

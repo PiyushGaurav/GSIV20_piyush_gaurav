@@ -47,10 +47,14 @@ class ListScreen extends Component {
       listData: [],
       isLoaded: false,
     };
-    this.getMoviesDebounced = _.debounce(this.getMovies, 500);
+    this.getMoviesDebounced = _.debounce(this.searchMovies, 500);
   }
 
   async componentDidMount() {
+    await this.getMovies();
+  }
+
+  getMovies = async () => {
     const response = await axios.get(
       `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}`,
     );
@@ -58,13 +62,13 @@ class ListScreen extends Component {
       listData: response.data.results,
       isLoaded: true,
     });
-  }
+  };
 
   onCardPress = (data) => {
     this.props.navigation.navigate('Details', {id: data.id});
   };
 
-  getMovies = async (searchText) => {
+  searchMovies = async (searchText) => {
     const response = await axios.get(
       `${Constants.API_URL}/search/movie?api_key=${Constants.API_KEY}&query=${searchText}`,
     );
@@ -81,7 +85,11 @@ class ListScreen extends Component {
         isLoaded: true,
       },
       async () => {
-        await this.getMoviesDebounced(this.state.value);
+        if (this.state.value === '') {
+          await this.getMovies();
+        } else {
+          await this.getMoviesDebounced(this.state.value);
+        }
       },
     );
   };
