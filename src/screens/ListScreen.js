@@ -48,7 +48,7 @@ class ListScreen extends Component {
       listData: [],
       isLoaded: false,
     };
-    this.getMoviesDebounced = _.debounce(this.searchMovies, 500);
+    this.getMoviesDebounced = _.debounce(this.searchMovies, 500); // adding debounce logic
   }
 
   async componentDidMount() {
@@ -57,7 +57,7 @@ class ListScreen extends Component {
 
   getMovies = async () => {
     const response = await axios.get(
-      `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}&sort_by=vote_average.desc`,
+      `${Constants.API_URL}/movie/upcoming?sort_by=vote_average.desc&api_key=${Constants.API_KEY}`,
     );
     console.log('LIST DATA : ',response.data.results);
     this.setState({
@@ -72,7 +72,7 @@ class ListScreen extends Component {
 
   searchMovies = async (searchText) => {
     const response = await axios.get(
-      `${Constants.API_URL}/search/movie?api_key=${Constants.API_KEY}&query=${searchText}`,
+      `${Constants.API_URL}/search/movie?sort_by=vote_average.desc&api_key=${Constants.API_KEY}&query=${searchText}`,
     );
     this.setState({
       listData: response.data.results,
