@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 import Colors from '../utils/Colors';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -19,14 +19,6 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 5,
     paddingHorizontal: 5,
-    shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowColor: Colors.Gray,
-    elevation: 10,
-    zIndex: 10000,
   },
 });
 

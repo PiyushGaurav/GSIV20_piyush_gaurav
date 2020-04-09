@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
   },
   container: {flex: 1, backgroundColor: Colors.White},
   searchContainer: {
+    height: 45,
     backgroundColor: Colors.White,
     shadowRadius: 5,
     shadowOpacity: Platform.OS === 'ios' ? 0.5 : 0.2,
@@ -115,7 +116,6 @@ class ListScreen extends Component {
         <ScrollView
           style={{
             backgroundColor: Colors.White,
-            paddingTop: 45,
           }}>
           <View style={styles.listContainer}>
             {this.state.listData.map((listItem) => (
