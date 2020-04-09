@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   secondInnerContent: {
     flex: 2,
     paddingHorizontal: 5,
-    paddingTop: 10,
+    paddingTop: 5,
   },
   titleStyle: {
     flex: 8,

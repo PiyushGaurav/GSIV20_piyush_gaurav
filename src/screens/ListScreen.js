@@ -56,7 +56,7 @@ class ListScreen extends Component {
 
   getMovies = async () => {
     const response = await axios.get(
-      `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}`,
+      `${Constants.API_URL}/movie/upcoming?api_key=${Constants.API_KEY}&sort_by=vote_average.desc`,
     );
     console.log('LIST DATA : ',response.data.results);
     this.setState({
